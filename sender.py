@@ -9,8 +9,8 @@ class Sender:
     def connection(self):
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         
-        #self.ip = input("IP: ")
-        #self.port = input("PORT: ")
+        self.ip = input("IP: ")
+        self.port = input("PORT: ")
         
         #self.ip = socket.gethostname()
         #self.port = 2222
