@@ -19,7 +19,7 @@ class Server:
         self.s.bind((self.ip, self.port))
         self.s.listen(5)
         
-        print("Opening server lmao what")
+        print(f"Opening server on {self.ip}")
         while True:
             client, address = self.s.accept()
             
