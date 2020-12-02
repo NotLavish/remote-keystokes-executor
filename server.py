@@ -9,17 +9,19 @@ class Server:
     def start(self):
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         
-        self.ip = socket.gethostbyaddr()
+        self.ip = socket.gethostname()
         self.port = 2222
         
         self.clients = []
+        
+        
         
         self.username = {}
         
         self.s.bind((self.ip, self.port))
         self.s.listen(5)
         
-        print(f"Opening server on {self.ip}")
+        print(f"Opening server on {socket.gethostbyname(socket.gethostname())}")
         while True:
             client, address = self.s.accept()
             
