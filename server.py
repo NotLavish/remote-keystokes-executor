@@ -9,7 +9,7 @@ class Server:
     def start(self):
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         
-        self.ip = socket.gethostname()
+        self.ip = socket.gethostbyaddr()
         self.port = 2222
         
         self.clients = []
