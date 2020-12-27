@@ -14,8 +14,6 @@ class Server:
         
         self.clients = []
         
-        
-        
         self.username = {}
         
         self.s.bind((self.ip, self.port))
@@ -37,7 +35,6 @@ class Server:
     def send(self, msg, client):
         try:
             if self.username[client] == 'sender':
-                msg = client.recv(1024).decode()
                 value = list(self.username.keys())[list(self.username.values()).index("recv")]
                 reciever = value
                 reciever.send(msg.encode())
@@ -46,7 +43,7 @@ class Server:
             
     def handler(self, client, address):
         while True:
-            msg = client.recv(1024).decode()
+            msg = client.recv(5024).decode()
             self.send(msg, client)
 
 server = Server()
