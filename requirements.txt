@@ -1,1 +1,2 @@
 keyboard == 0.13.5
+notify-py == 0.3.1
