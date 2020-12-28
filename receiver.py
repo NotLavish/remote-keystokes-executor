@@ -26,13 +26,22 @@ class Receiver:
         input_handler.start()
         
     def input_handler(self):
+        isPaused = False
         while True:
             msg = self.s.recv(5024).decode()
             keystrokes = msg.split(" ")
             key = keystrokes[-2].split("(")[-1]
-            if keystrokes[-1][:-1] == 'up':
-                keyboard.release(key)
-            elif keystrokes[-1][:-1] == 'down':
-                keyboard.press(key)
+            if key == "esc":
+                if isPaused:
+                    isPaused = False
+                else:
+                    isPaused = True
+            if isPaused:
+                pass
+            else:
+                if keystrokes[-1][:-1] == 'up':
+                    keyboard.release(key)
+                elif keystrokes[-1][:-1] == 'down':
+                    keyboard.press(key)
                 
 client = Receiver()
