@@ -43,7 +43,11 @@ class Server:
             
     def handler(self, client, address):
         while True:
-            msg = client.recv(5024).decode()
-            self.send(msg, client)
-
+            try:
+                msg = client.recv(5024).decode()
+                self.send(msg, client)
+            except:
+                self.clients.remove(client)
+                self.username.pop(client)
+                break
 server = Server()
