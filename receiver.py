@@ -28,10 +28,10 @@ class Receiver:
     def input_handler(self):
         while True:
             msg = self.s.recv(5024).decode()
-            keystrokes = msg[14:-1].split(' ')
-            if keystrokes[1] == 'up':
-                keyboard.release(keystrokes[0])
-            elif keystrokes[1] == 'down':
-                keyboard.press(keystrokes[0])
+            keystrokes = msg.split(" ")
+            if keystrokes[-1][:-1] == 'up':
+                keyboard.release(keystrokes[-2][-1:])
+            elif keystrokes[-1][:-1] == 'down':
+                keyboard.press(keystrokes[-2][-1:])
                 
 client = Receiver()
