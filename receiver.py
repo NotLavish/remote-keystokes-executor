@@ -1,6 +1,7 @@
 import socket
 import threading
 import keyboard
+from notifypy import Notify
 
 class Receiver:
     def __init__(self):
@@ -26,22 +27,28 @@ class Receiver:
         input_handler.start()
         
     def input_handler(self):
-        isPaused = False
+        notPaused = True
+        notif = Notify()
+        notif.title = "Lavish's Keystrokes Thingy"
         while True:
             msg = self.s.recv(5024).decode()
             keystrokes = msg.split(" ")
             key = keystrokes[-2].split("(")[-1]
-            if key == "esc":
-                if isPaused:
-                    isPaused = False
+            if key == "esc" and keystrokes[-1][:-1] == 'up':
+                if notPaused:
+                    notPaused = False
+                    notif.message = "Paused"
+                    notif.send()
                 else:
-                    isPaused = True
-            if isPaused:
-                pass
-            else:
+                    notPaused = True
+                    notif.message = "Unpaused"
+                    notif.send()
+            if notPaused:
                 if keystrokes[-1][:-1] == 'up':
                     keyboard.release(key)
                 elif keystrokes[-1][:-1] == 'down':
                     keyboard.press(key)
+            else:
+                pass
                 
 client = Receiver()
